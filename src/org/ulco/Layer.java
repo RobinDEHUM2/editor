@@ -26,7 +26,16 @@ public class Layer {
     }
 
     public int getObjectNumber() {
-        return m_list.size();
+        int size = 0;
+        for(GraphicsObject o : m_list){
+            if(o instanceof Group){
+                size+=((Group)o).size();
+            }else{
+                size++;
+            }
+
+        }
+        return size;
     }
 
     public int getID() {

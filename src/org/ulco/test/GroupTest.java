@@ -119,6 +119,8 @@ public class GroupTest extends TestCase {
 
         Group g_copy = g2.copy();
 
+
+
         assertEquals(g_copy.size(), 3);
         assertNotSame(g_copy.getID(), g2.getID());
     }

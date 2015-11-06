@@ -1,24 +1,34 @@
 package org.ulco;
 
+import java.lang.reflect.Constructor;
+
 public class JSON {
     static public GraphicsObject parse(String json) {
         GraphicsObject o = null;
         String str = json.replaceAll("\\s+", "");
         String type = str.substring(str.indexOf("type") + 5, str.indexOf(","));
+        char first =(char) (type.charAt(0) + 'A' - 'a');
 
-        if (type.compareTo("square") == 0) {
-            o = new Square(str);
-        } else if (type.compareTo("rectangle") == 0) {
-            o = new Rectangle(str);
-        } else if (type.compareTo("circle") == 0) {
-            o = new Circle(str);
-        }
+        type ="org.ulco."+ first + type.substring(1);
+
+
+
+        try {
+            Class c = Class.forName(type);
+            Class[] types = new Class[]{String.class};
+            Constructor ct = c.getConstructor(types);
+            o = (GraphicsObject) ct.newInstance(str);
+
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+        };
+
         return o;
     }
 
-    static public Group parseGroup(String json) {
-        return new Group(json);
-    }
+
 
     static public Layer parseLayer(String json) {
         return new Layer(json);
