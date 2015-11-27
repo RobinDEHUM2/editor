@@ -19,5 +19,13 @@ abstract public class GraphicsObject {
 
     abstract public String toString();
 
+    public GraphicsObjects returnElement(){
+        GraphicsObjects list = new GraphicsObjects();
+        list.add(this);
+        return list;
+    }
+
+    public int size(){return 1;}
+
     private int m_ID;
 }

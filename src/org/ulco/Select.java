@@ -20,8 +20,21 @@ public class Select {
 
         for (GraphicsObject object : m_list) {
             if (object.isClosed(pt, distance)) {
-                list.add(object);
+                list.addAll(object.returnElement());
             }
+        }
+        return list;
+    }
+
+    public GraphicsObjects get(Document doc){
+        GraphicsObjects list = new GraphicsObjects();
+        for(Layer layer : doc.getLayers()){
+            for (GraphicsObject object : layer.getList()) {
+                if (object.isClosed(pt, distance)) {
+                    list.addAll(object.returnElement());
+                }
+            }
+
         }
         return list;
     }

@@ -24,7 +24,19 @@ public class Group extends GraphicsObject{
     }
 
     public boolean isClosed(Point pt, double distance){
-        return true;
+        boolean closed = false;
+
+        if(m_objectList.size()>0){
+
+            closed = true;
+
+            for(int i = 0; i < m_objectList.size() && closed ; i++){
+                closed = m_objectList.get(i).isClosed(pt, distance);
+
+            }
+        }
+
+        return closed;
     }
 
     public void add(Object object) {
@@ -217,6 +229,15 @@ public class Group extends GraphicsObject{
             }
         }
         return str + "]]";
+    }
+
+    public GraphicsObjects returnElement(){
+        GraphicsObjects list = new GraphicsObjects();
+        for( GraphicsObject object : m_objectList){
+            list.add(object);
+        }
+
+        return list;
     }
 
 

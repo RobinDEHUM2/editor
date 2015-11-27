@@ -28,6 +28,25 @@ public class DocumentTest extends TestCase {
         assertTrue(document.select(new Point(1,1), 8).size() == 2);
     }
 
+    public void testSelectGroup() throws Exception {
+        Document document = new Document();
+        Layer layer = document.createLayer();
+        Circle c = new Circle(new Point(2, 8), 10);
+        Square s = new Square(new Point(-2, -3), 3);
+
+        layer.add(c);
+        layer.add(s);
+
+        Group g = new Group();
+
+        g.add(c);
+        g.add(s);
+
+        layer.add(g);
+
+        assertTrue(document.select(new Point(1, 1), 8).size() == 4);
+    }
+
     public void testJSON() throws Exception {
         Document document = new Document();
         Layer l1 = document.createLayer();
@@ -67,13 +86,13 @@ public class DocumentTest extends TestCase {
     }
 
     public void testConstructorGrid() throws Exception {
-        Document document = new Document(new Point(0,0), 3, 3, 5);
+        Document document = Builder.createGrid(new Point(0, 0), 3, 3, 5);
 
         assertEquals(document.getObjectNumber(), 9);
         assertEquals(document.getLayerNumber(), 1);
     }
 
     public void testConstructorCircle() throws Exception {
-        assertEquals(new Document(new Point(0,0), 4, 3., 4.).getObjectNumber(), 4);
+        assertEquals(Builder.createCircles(new Point(0,0), 4, 3., 4.).getObjectNumber(), 4);
     }
 }

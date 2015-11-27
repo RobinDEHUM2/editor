@@ -39,4 +39,25 @@ public class LayerTest extends TestCase {
         l.add(g);
         assertEquals(l.getObjectNumber(), 4);
     }
+
+    public void testSelectGroup() throws Exception {
+        Layer l = new Layer();
+        Square s = new Square(new Point(0, 0), 5);
+        Circle c = new Circle(new Point(5, 5), 4);
+        Group g = new Group();
+        g.add(s);
+        g.add(c);
+
+        l.add(s);
+        l.add(c);
+        l.add(g);
+
+
+
+        GraphicsObjects list1 = l.select(new Point(0,0), 5);
+        GraphicsObjects list2 = l.select(new Point(0,0), 10);
+
+        assertEquals(list1.size(), 1);
+        assertEquals(list2.size(), 4);
+    }
 }

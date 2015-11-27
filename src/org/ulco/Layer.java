@@ -25,14 +25,14 @@ public class Layer {
         return m_list.elementAt(index);
     }
 
+    public int size(){
+        return m_list.size();
+    }
+
     public int getObjectNumber() {
         int size = 0;
         for(GraphicsObject o : m_list){
-            if(o instanceof Group){
-                size+=((Group)o).size();
-            }else{
-                size++;
-            }
+            size+=o.size();
 
         }
         return size;
@@ -105,6 +105,10 @@ public class Layer {
             }
         }
         return str + " } }";
+    }
+
+    public Vector<GraphicsObject> getList(){
+        return new Vector<GraphicsObject>(m_list);
     }
 
     private Vector<GraphicsObject> m_list;
