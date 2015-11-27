@@ -1,6 +1,6 @@
 package org.ulco;
 
-abstract public class GraphicsObject {
+abstract public class GraphicsObject extends myJsonnable {
     public GraphicsObject() {
         m_ID = ID.newID();
     }
@@ -19,13 +19,9 @@ abstract public class GraphicsObject {
 
     abstract public String toString();
 
-    public GraphicsObjects returnElement(){
-        GraphicsObjects list = new GraphicsObjects();
-        list.add(this);
-        return list;
-    }
+    abstract public GraphicsObjects returnElement();
 
-    public int size(){return 1;}
+    abstract public int size();
 
     private int m_ID;
 }

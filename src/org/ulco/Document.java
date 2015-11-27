@@ -3,7 +3,7 @@ package org.ulco;
 import java.util.Iterator;
 import java.util.Vector;
 
-public class Document {
+public class Document extends myJsonnable{
     public Document() {
         m_layers = new Vector<Layer>();
     }
@@ -58,28 +58,7 @@ public class Document {
     }
 
     private int searchSeparator(String str) {
-        int index = 0;
-        int level = 0;
-        boolean found = false;
-
-        while (!found && index < str.length()) {
-            if (str.charAt(index) == '{') {
-                ++level;
-                ++index;
-            } else if (str.charAt(index) == '}') {
-                --level;
-                ++index;
-            } else if (str.charAt(index) == ',' && level == 0) {
-                found = true;
-            } else {
-                ++index;
-            }
-        }
-        if (found) {
-            return index;
-        } else {
-            return -1;
-        }
+        return StringOperations.searchSeparator(str);
     }
 
     public GraphicsObjects select(Point pt, double distance) {
@@ -95,15 +74,14 @@ public class Document {
     public String toJson() {
         String str = "{ type: document, layers: { ";
 
-        for (int i = 0; i < m_layers.size(); ++i) {
-            Layer element = m_layers.elementAt(i);
 
-            str += element.toJson();
-            if (i < m_layers.size() - 1) {
-                str += ", ";
-            }
-        }
-        return str + " } }";
+        StringOperations<Layer> SO = new StringOperations<Layer>();
+
+        str +=SO.toJson(m_layers);
+
+
+
+        return str;
     }
 
     public Vector<Layer> getLayers(){
